@@ -1,4 +1,5 @@
-import { UsersTable, Renderizable } from "./usersTable";
+import UsersTable from "./components/usersTable";
+import { Renderizable } from "./interfaces";
 
 let rootElement: HTMLElement;
 let currentContentBuilder: Renderizable;
@@ -25,14 +26,14 @@ const renderComponent = async (component: Renderizable) => {
     renderOnRoot(mainContainer);
 }
 
-const createMainContainer = () : HTMLElement => {
+const createMainContainer = (): HTMLElement => {
     const mainContainer = document.createElement("main");
     mainContainer.className = "app-container";
     return mainContainer;
 }
 
 const renderOnRoot = (component: HTMLElement) => {
-    if (rootElement) { 
+    if (rootElement) {
         if (rootElement.firstChild) {
             rootElement.removeChild(rootElement.firstChild);
         }

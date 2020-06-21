@@ -1,39 +1,8 @@
-import promiseXHR from "./promiseXHR";
+import PermissionsTable from "./permissionsTable";
+import promiseXHR from "../promiseXHR";
+import { Renderizable, User } from "../interfaces";
 
-export interface Renderizable {
-    changeComponentHandler: (component: Renderizable) => void;
-    render: () => HTMLElement | Promise<HTMLElement>;
-}
-
-class PermissionsTable implements Renderizable {
-    changeComponentHandler: (component: Renderizable) => void; 
-    render() {
-        const table = document.createElement("table");
-        return table;
-    };
-}
-
-interface User {
-    id: number;
-    name: string;
-    login: string;
-    permissions: ModulePermissions[]
-}
-
-interface ModulePermissions {
-    moduleId: number;
-    moduleName: string;
-    permissions: Permission[];
-}
-
-interface Permission {
-    create: boolean;
-    read: boolean;
-    update: boolean;
-    delete: boolean;
-}
-
-export class UsersTable implements Renderizable {
+export default class UsersTable implements Renderizable {
     changeComponentHandler: (component: Renderizable) => HTMLElement | Promise<HTMLElement>;
     async render() {
         const userRequest = await promiseXHR("https://simple-users-backend.herokuapp.com/user", "GET");
@@ -69,7 +38,7 @@ export class UsersTable implements Renderizable {
     createUserTr(user: User): HTMLElement {
         const tr = document.createElement("tr");
         tr.className = "app-table-tr";
-        tr.onclick = (event: MouseEvent) => this.HandleUserClick(user.id, event);
+        tr.onclick = (event: MouseEvent) => this.HandleUserClick(user, event);
 
         const idTd = this.createElementAndSetInnerHTML("td", user.id.toString(), "app-table-td");
         tr.appendChild(idTd);
@@ -83,11 +52,11 @@ export class UsersTable implements Renderizable {
         return tr;
     }
 
-    HandleUserClick(userId: number, event: MouseEvent) {
-        console.log('userId: ', userId)
+    HandleUserClick(user: User, event: MouseEvent) {
+        console.log('user: ', user)
         // instancia tabela de permissoes
         // passa os dados pra ela
-        this.changeComponentHandler(new PermissionsTable);
+        this.changeComponentHandler(new PermissionsTable(user));
     }
 
     createElementAndSetInnerHTML(tag: string, value: string, className?: string): HTMLElement {
