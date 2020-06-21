@@ -1,0 +1,14 @@
+.app-table {
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.app-table .app-table-th, .app-table-td {    
+    text-align: left;
+    padding: 8px;    
+}
+
+.app-table .app-table-tr:nth-child(even) {
+    background-color: #dddddd;
+  }
