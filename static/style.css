@@ -11,4 +11,9 @@
 
 .app-table .app-table-tr:nth-child(even) {
     background-color: #dddddd;
-  }
+}
+
+.app-table .app-table-tr:hover {
+    background-color: #aaaaaa;
+    cursor: pointer;
+}

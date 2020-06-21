@@ -1,4 +1,5 @@
 import promiseXHR from "./promiseXHR";
+import UsersTable from "./usersTable";
 
 interface User {
     id: number;
@@ -53,7 +54,7 @@ const createUsersTable = (users: User[]): HTMLElement => {
 
 const createUsersTableHeader = () : HTMLElement => {
     const header = document.createElement("tr");
-    header.className = "app-table-tr";
+    header.className = "app-table-header";
     
     header.appendChild(createElementAndSetInnerHTML("th", "ID", "app-table-th"));
     header.appendChild(createElementAndSetInnerHTML("th", "Name", "app-table-th"));
@@ -65,6 +66,7 @@ const createUsersTableHeader = () : HTMLElement => {
 const createUserTr = (user: User): HTMLElement => {
     const tr = document.createElement("tr");
     tr.className = "app-table-tr";
+    tr.onclick = (event: MouseEvent) => HandleUserClick(user.id, event);
 
     const idTd = createElementAndSetInnerHTML("td", user.id.toString(), "app-table-td");
     tr.appendChild(idTd);
@@ -76,6 +78,10 @@ const createUserTr = (user: User): HTMLElement => {
     tr.appendChild(loginTd);
 
     return tr;
+}
+
+const HandleUserClick = (userId: number, event: MouseEvent) => {
+    console.log('userId: ', userId)
 }
 
 const createElementAndSetInnerHTML = (tag: string, value: string, className?: string) : HTMLElement => {
