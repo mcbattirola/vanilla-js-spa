@@ -9,6 +9,12 @@ export class HTMLElementConstructor {
     }
 }
 
+export abstract class CssUtiliyClasses {
+    public static alignTextCenter = 'app-text-align-center';
+    public static alignTextLeft = 'app-text-align-left';
+    public static loadingIcon = 'loader-icon';
+}
+
 export abstract class MainTableClasses {
     public static table = "app-table";
     public static header = "app-table-header";
@@ -16,5 +22,6 @@ export abstract class MainTableClasses {
     public static trHover = "app-table-tr--hover";
     public static th = "app-table-th";
     public static td = "app-table-td";
+    public static tdAlignText = "td-text-center"
     public static footer = "app-table-footer";
 }

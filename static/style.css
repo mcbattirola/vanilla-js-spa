@@ -9,7 +9,12 @@
     }
 }
 
-.app-main-title {
+.app-text-align-center {
+    text-align: center;
+}
+
+.app-text-align-left {
+    text-align: left;
 }
 
 .app-table {
@@ -19,8 +24,12 @@
     font-size: 1.25rem;
 }
 
+.app-table-header {
+    background-color: #212529;
+    color: white;
+}
+
 .app-table .app-table-th, .app-table-td {    
-    text-align: left;
     padding: 8px;    
 }
 
@@ -54,5 +63,5 @@
 .app-return-button:hover {
     cursor: pointer;
     color: white;
-    background-color: #cccccc;
+    background-color: #212529;
 }

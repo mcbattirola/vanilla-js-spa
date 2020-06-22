@@ -12,7 +12,7 @@ const initApp = async () => {
         rootElement.appendChild(loading)
         changeComponentHandler(new UsersTable);
     } catch (error) {
-        //TODO alert user
+        //TODO alert user. Try again?
     }
 };
 

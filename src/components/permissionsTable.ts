@@ -1,5 +1,5 @@
 import { Renderizable, User, ModulePermissions, Permission } from "../interfaces";
-import { HTMLElementConstructor, MainTableClasses } from "../types";
+import { HTMLElementConstructor, MainTableClasses, CssUtiliyClasses } from "../types";
 import UsersTable from "./usersTable";
 
 export default class PermissionsTable extends HTMLElementConstructor implements Renderizable {
@@ -53,7 +53,7 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
         header.className = MainTableClasses.header;
         let thClass = MainTableClasses.th;
 
-        header.appendChild(this.createElementAndSetInnerHTML("th", "Module", thClass));
+        header.appendChild(this.createElementAndSetInnerHTML("th", "Module", `${thClass} ${CssUtiliyClasses.alignTextLeft}`));
         header.appendChild(this.createElementAndSetInnerHTML("th", "Create", thClass));
         header.appendChild(this.createElementAndSetInnerHTML("th", "Read", thClass));
         header.appendChild(this.createElementAndSetInnerHTML("th", "Update", thClass));
@@ -70,11 +70,25 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
 
         const nameTd = this.createElementAndSetInnerHTML("td", systemModule.moduleName, tdClass);
         tr.appendChild(nameTd);
-        tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.create.toString(), tdClass));
-        tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.read.toString(), tdClass));
-        tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.update.toString(), tdClass));
-        tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.delete.toString(), tdClass));
+        tr.appendChild(this.createPermissionCheckboxTd(systemModule.permissions.create));
+        tr.appendChild(this.createPermissionCheckboxTd(systemModule.permissions.read));
+        tr.appendChild(this.createPermissionCheckboxTd(systemModule.permissions.update));
+        tr.appendChild(this.createPermissionCheckboxTd(systemModule.permissions.delete));
 
         return tr;
+    }
+
+    createPermissionCheckboxTd(enabled: boolean): HTMLElement {
+        const td = document.createElement("td");
+        td.className = CssUtiliyClasses.alignTextCenter;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.setAttribute("disabled", "true");
+        checkbox.checked = enabled
+
+        td.appendChild(checkbox);
+        return td;
+
     }
 }

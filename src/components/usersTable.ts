@@ -1,7 +1,7 @@
 import PermissionsTable from "./permissionsTable";
 import promiseXHR from "../promiseXHR";
 import { Renderizable, User } from "../interfaces";
-import { HTMLElementConstructor, MainTableClasses } from "../types";
+import { HTMLElementConstructor, MainTableClasses, CssUtiliyClasses } from "../types";
 
 export default class UsersTable extends HTMLElementConstructor implements Renderizable {
     changeComponentHandler: (component: Renderizable) => HTMLElement | Promise<HTMLElement>;
@@ -32,7 +32,7 @@ export default class UsersTable extends HTMLElementConstructor implements Render
     createUsersTableHeader(): HTMLElement {
         const header = document.createElement("tr");
         header.className = MainTableClasses.header;
-        let thClass = MainTableClasses.th;
+        let thClass = `${MainTableClasses.th} ${CssUtiliyClasses.alignTextLeft}`;
 
         header.appendChild(this.createElementAndSetInnerHTML("th", "ID", thClass));
         header.appendChild(this.createElementAndSetInnerHTML("th", "Name", thClass));
