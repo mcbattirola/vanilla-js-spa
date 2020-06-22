@@ -1,8 +1,9 @@
 import PermissionsTable from "./permissionsTable";
 import promiseXHR from "../promiseXHR";
 import { Renderizable, User } from "../interfaces";
+import { HTMLElementConstructor, MainTableClasses } from "../types";
 
-export default class UsersTable implements Renderizable {
+export default class UsersTable extends HTMLElementConstructor implements Renderizable {
     changeComponentHandler: (component: Renderizable) => HTMLElement | Promise<HTMLElement>;
     async render() {
         const userRequest = await promiseXHR("https://simple-users-backend.herokuapp.com/user", "GET");
@@ -12,7 +13,7 @@ export default class UsersTable implements Renderizable {
 
     createUsersTable(users: User[]): HTMLElement {
         const table = document.createElement("table");
-        table.className = "app-table";
+        table.className = MainTableClasses.table;
 
         table.appendChild(this.createUsersTableHeader())
 
@@ -26,27 +27,30 @@ export default class UsersTable implements Renderizable {
 
     createUsersTableHeader(): HTMLElement {
         const header = document.createElement("tr");
-        header.className = "app-table-header";
+        header.className = MainTableClasses.header;
+        let thClass = MainTableClasses.th;
 
-        header.appendChild(this.createElementAndSetInnerHTML("th", "ID", "app-table-th"));
-        header.appendChild(this.createElementAndSetInnerHTML("th", "Name", "app-table-th"));
-        header.appendChild(this.createElementAndSetInnerHTML("th", "Login", "app-table-th"));
+        header.appendChild(this.createElementAndSetInnerHTML("th", "ID", thClass));
+        header.appendChild(this.createElementAndSetInnerHTML("th", "Name", thClass));
+        header.appendChild(this.createElementAndSetInnerHTML("th", "Login", thClass));
 
         return header;
     }
 
     createUserTr(user: User): HTMLElement {
         const tr = document.createElement("tr");
-        tr.className = "app-table-tr";
+        tr.className = `${MainTableClasses.tr} ${MainTableClasses.trHover}`;
         tr.onclick = (event: MouseEvent) => this.HandleUserClick(user, event);
 
-        const idTd = this.createElementAndSetInnerHTML("td", user.id.toString(), "app-table-td");
+        let tdClass = MainTableClasses.td;
+
+        const idTd = this.createElementAndSetInnerHTML("td", user.id.toString(), tdClass);
         tr.appendChild(idTd);
 
-        const nameTd = this.createElementAndSetInnerHTML("td", user.name, "app-table-td");
+        const nameTd = this.createElementAndSetInnerHTML("td", user.name, tdClass);
         tr.appendChild(nameTd);
 
-        const loginTd = this.createElementAndSetInnerHTML("td", user.login, "app-table-td");
+        const loginTd = this.createElementAndSetInnerHTML("td", user.login, tdClass);
         tr.appendChild(loginTd);
 
         return tr;
@@ -54,18 +58,7 @@ export default class UsersTable implements Renderizable {
 
     HandleUserClick(user: User, event: MouseEvent) {
         console.log('user: ', user)
-        // instancia tabela de permissoes
-        // passa os dados pra ela
         this.changeComponentHandler(new PermissionsTable(user));
-    }
-
-    createElementAndSetInnerHTML(tag: string, value: string, className?: string): HTMLElement {
-        const element = document.createElement(tag);
-        element.innerHTML = value;
-        if (className) {
-            element.className = className
-        }
-        return element;
     }
 
 }

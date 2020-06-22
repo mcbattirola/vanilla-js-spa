@@ -8,7 +8,7 @@ export interface User {
 export interface ModulePermissions {
     moduleId: number;
     moduleName: string;
-    permissions: Permission[];
+    permissions: Permission;
 }
 
 export interface Permission {

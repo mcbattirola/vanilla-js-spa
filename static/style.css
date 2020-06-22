@@ -13,7 +13,7 @@
     background-color: #dddddd;
 }
 
-.app-table .app-table-tr:hover {
+.app-table .app-table-tr--hover:hover {
     background-color: #aaaaaa;
     cursor: pointer;
 }

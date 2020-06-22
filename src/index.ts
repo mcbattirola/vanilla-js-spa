@@ -20,7 +20,7 @@ const changeComponentHandler = (component: Renderizable) => {
 }
 
 const renderComponent = async (component: Renderizable) => {
-    const appContent = await currentContentBuilder.render();
+    const appContent = await currentContentBuilder.render();    
     const mainContainer = createMainContainer();
     mainContainer.appendChild(appContent)
     renderOnRoot(mainContainer);
