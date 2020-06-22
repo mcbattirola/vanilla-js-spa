@@ -17,3 +17,13 @@
     background-color: #aaaaaa;
     cursor: pointer;
 }
+
+.app-return-link {
+    font-size: 1.2rem;
+    color: blue;
+}
+
+.app-return-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

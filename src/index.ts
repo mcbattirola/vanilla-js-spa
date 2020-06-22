@@ -9,7 +9,7 @@ const initApp = async () => {
         rootElement = document.getElementById('app');
         changeComponentHandler(new UsersTable);
     } catch (error) {
-
+        //TODO alert user
     }
 };
 

@@ -14,7 +14,6 @@ export default class UsersTable extends HTMLElementConstructor implements Render
     createUsersTable(users: User[]): HTMLElement {
         const table = document.createElement("table");
         table.className = MainTableClasses.table;
-
         table.appendChild(this.createUsersTableHeader())
 
         for (let index = 0; index < users.length; index++) {
@@ -44,20 +43,14 @@ export default class UsersTable extends HTMLElementConstructor implements Render
 
         let tdClass = MainTableClasses.td;
 
-        const idTd = this.createElementAndSetInnerHTML("td", user.id.toString(), tdClass);
-        tr.appendChild(idTd);
-
-        const nameTd = this.createElementAndSetInnerHTML("td", user.name, tdClass);
-        tr.appendChild(nameTd);
-
-        const loginTd = this.createElementAndSetInnerHTML("td", user.login, tdClass);
-        tr.appendChild(loginTd);
+        tr.appendChild(this.createElementAndSetInnerHTML("td", user.id.toString(), tdClass));
+        tr.appendChild(this.createElementAndSetInnerHTML("td", user.name, tdClass));
+        tr.appendChild(this.createElementAndSetInnerHTML("td", user.login, tdClass));
 
         return tr;
     }
 
     HandleUserClick(user: User, event: MouseEvent) {
-        console.log('user: ', user)
         this.changeComponentHandler(new PermissionsTable(user));
     }
 

@@ -1,8 +1,9 @@
 import { Renderizable, User, ModulePermissions, Permission } from "../interfaces";
 import { HTMLElementConstructor, MainTableClasses } from "../types";
+import UsersTable from "./usersTable";
 
 export default class PermissionsTable extends HTMLElementConstructor implements Renderizable {
-    changeComponentHandler: (component: Renderizable) => void;
+    changeComponentHandler: (component: Renderizable) => HTMLElement | Promise<HTMLElement>;
     private user: User;
 
     constructor(user: User) {
@@ -10,9 +11,23 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
         this.user = user;
     }
     render() {
-        const table = this.createPermissionsTable(this.user);
-        return table;
+        const container = document.createElement("div");
+        container.appendChild(this.createBackLink());
+        container.appendChild(this.createPermissionsTable(this.user));
+        return container;
     };
+
+    createBackLink(): HTMLElement {
+        const link = document.createElement("a");
+        link.innerHTML = "Back";
+        link.className = "app-return-link"
+        link.onclick = (event: MouseEvent) => this.goBack();
+        return link;
+    }
+
+    goBack(): void {
+        this.changeComponentHandler(new UsersTable);
+    }
 
     createPermissionsTable(user: User): HTMLElement {
         const table = document.createElement("table");
@@ -50,7 +65,6 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
 
         const nameTd = this.createElementAndSetInnerHTML("td", systemModule.moduleName, tdClass);
         tr.appendChild(nameTd);
-        
         tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.create.toString(), tdClass));
         tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.read.toString(), tdClass));
         tr.appendChild(this.createElementAndSetInnerHTML("td", systemModule.permissions.update.toString(), tdClass));
