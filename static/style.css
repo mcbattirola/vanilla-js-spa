@@ -1,5 +1,6 @@
 .app-container {
     margin: 4rem 5%;
+    font-family: "Open sans";
 }
 
 @media only screen and (min-width: 768px) {
@@ -8,10 +9,14 @@
     }
 }
 
+.app-main-title {
+}
+
 .app-table {
     border: 1px solid #dddddd;
     border-collapse: collapse;
     width: 100%;
+    font-size: 1.25rem;
 }
 
 .app-table .app-table-th, .app-table-td {    
@@ -28,12 +33,26 @@
     cursor: pointer;
 }
 
-.app-return-link {
-    font-size: 1.2rem;
-    color: blue;
+.app-table-footer {
+    margin: 1rem 0;
 }
 
-.app-return-link:hover {
+.app-return-button {
+    color: black;
+    background-color: white;
+    border-radius: .25rem;
+
+    border: 1px solid #cccccc;
+
+    padding: .25rem .75rem;
+
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+}
+
+.app-return-button:hover {
     cursor: pointer;
-    text-decoration: underline;
+    color: white;
+    background-color: #cccccc;
 }

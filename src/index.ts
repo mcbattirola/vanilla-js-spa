@@ -7,11 +7,20 @@ let currentContentBuilder: Renderizable;
 const initApp = async () => {
     try {
         rootElement = document.getElementById('app');
+
+        let loading = createLoadingElement();
+        rootElement.appendChild(loading)
         changeComponentHandler(new UsersTable);
     } catch (error) {
         //TODO alert user
     }
 };
+
+const createLoadingElement = () : HTMLElement => {
+    let loading = document.createElement("h1");
+    loading.innerHTML = "loading...";
+    return loading;
+}
 
 const changeComponentHandler = (component: Renderizable) => {
     currentContentBuilder = component;

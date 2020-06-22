@@ -12,17 +12,22 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
     }
     render() {
         const container = document.createElement("div");
-        container.appendChild(this.createBackLink());
+        container.appendChild(this.createElementAndSetInnerHTML("h1", `${this.user.name} (${this.user.login}) - PERMISSIONS`, "app-main-title"));
         container.appendChild(this.createPermissionsTable(this.user));
+        container.appendChild(this.createBackLink());
         return container;
     };
 
     createBackLink(): HTMLElement {
+
+        const linkContainer = this.createElementAndSetInnerHTML("div", "", MainTableClasses.footer);        
         const link = document.createElement("a");
         link.innerHTML = "Back";
-        link.className = "app-return-link"
+        link.className = "app-return-button"
         link.onclick = (event: MouseEvent) => this.goBack();
-        return link;
+
+        linkContainer.appendChild(link);
+        return linkContainer;
     }
 
     goBack(): void {

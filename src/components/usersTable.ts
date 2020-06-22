@@ -8,7 +8,12 @@ export default class UsersTable extends HTMLElementConstructor implements Render
     async render() {
         const userRequest = await promiseXHR("https://simple-users-backend.herokuapp.com/user", "GET");
         const users: User[] = JSON.parse(userRequest.response);
-        return this.createUsersTable(users);
+
+        const container = document.createElement("div");
+
+        container.appendChild(this.createElementAndSetInnerHTML("h1", "USERS", "app-main-title"));
+        container.appendChild(this.createUsersTable(users))
+        return container;
     };
 
     createUsersTable(users: User[]): HTMLElement {

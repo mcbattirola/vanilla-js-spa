@@ -16,4 +16,5 @@ export abstract class MainTableClasses {
     public static trHover = "app-table-tr--hover";
     public static th = "app-table-th";
     public static td = "app-table-td";
+    public static footer = "app-table-footer";
 }
