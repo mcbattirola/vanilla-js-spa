@@ -5,18 +5,14 @@ let rootElement: HTMLElement;
 let currentContentBuilder: Renderizable;
 
 const initApp = async () => {
-    try {
-        rootElement = document.getElementById('app');
+    rootElement = document.getElementById('app');
 
-        let loading = createLoadingElement();
-        rootElement.appendChild(loading)
-        changeComponentHandler(new UsersTable);
-    } catch (error) {
-        //TODO alert user. Try again?
-    }
+    let loading = createLoadingElement();
+    rootElement.appendChild(loading)
+    changeComponentHandler(new UsersTable);
 };
 
-const createLoadingElement = () : HTMLElement => {
+const createLoadingElement = (): HTMLElement => {
     let loading = document.createElement("h1");
     loading.innerHTML = "loading...";
     return loading;
@@ -25,11 +21,11 @@ const createLoadingElement = () : HTMLElement => {
 const changeComponentHandler = (component: Renderizable) => {
     currentContentBuilder = component;
     component.changeComponentHandler = changeComponentHandler;
-    renderComponent(component);
+    renderComponent();
 }
 
-const renderComponent = async (component: Renderizable) => {
-    const appContent = await currentContentBuilder.render();    
+const renderComponent = async () => {
+    const appContent = await currentContentBuilder.render();
     const mainContainer = createMainContainer();
     mainContainer.appendChild(appContent)
     renderOnRoot(mainContainer);
