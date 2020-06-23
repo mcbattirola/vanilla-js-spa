@@ -3,6 +3,7 @@ import { HTMLElementConstructor, MainTableClasses, CssUtiliyClasses } from "../t
 import UsersTable from "./usersTable";
 
 export default class PermissionsTable extends HTMLElementConstructor implements Renderizable {
+
     changeComponentHandler: (component: Renderizable) => HTMLElement | Promise<HTMLElement>;
     private user: User;
 
@@ -10,6 +11,7 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
         super();
         this.user = user;
     }
+
     render() {
         const container = document.createElement("div");
         container.appendChild(this.createElementAndSetInnerHTML("h1", `${this.user.name} (${this.user.login}) - PERMISSIONS`, "app-main-title"));
@@ -17,22 +19,6 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
         container.appendChild(this.createBackLink());
         return container;
     };
-
-    createBackLink(): HTMLElement {
-
-        const linkContainer = this.createElementAndSetInnerHTML("div", "", MainTableClasses.footer);        
-        const link = document.createElement("a");
-        link.innerHTML = "Back";
-        link.className = "app-return-button"
-        link.onclick = (event: MouseEvent) => this.goBack();
-
-        linkContainer.appendChild(link);
-        return linkContainer;
-    }
-
-    goBack(): void {
-        this.changeComponentHandler(new UsersTable);
-    }
 
     createPermissionsTable(user: User): HTMLElement {
         const table = document.createElement("table");
@@ -89,6 +75,21 @@ export default class PermissionsTable extends HTMLElementConstructor implements 
 
         td.appendChild(checkbox);
         return td;
+    }
 
+    createBackLink(): HTMLElement {
+
+        const linkContainer = this.createElementAndSetInnerHTML("div", "", MainTableClasses.footer);
+        const link = document.createElement("a");
+        link.innerHTML = "Back";
+        link.className = "app-return-button"
+        link.onclick = (event: MouseEvent) => this.goBack();
+
+        linkContainer.appendChild(link);
+        return linkContainer;
+    }
+
+    goBack(): void {
+        this.changeComponentHandler(new UsersTable);
     }
 }

@@ -4,7 +4,9 @@ import { Renderizable, User } from "../interfaces";
 import { HTMLElementConstructor, MainTableClasses, CssUtiliyClasses } from "../types";
 
 export default class UsersTable extends HTMLElementConstructor implements Renderizable {
+
     changeComponentHandler: (component: Renderizable) => HTMLElement | Promise<HTMLElement>;
+    
     async render() {
         const userRequest = await promiseXHR("https://simple-users-backend.herokuapp.com/user", "GET");
         const users: User[] = JSON.parse(userRequest.response);
@@ -58,5 +60,4 @@ export default class UsersTable extends HTMLElementConstructor implements Render
     HandleUserClick(user: User, event: MouseEvent) {
         this.changeComponentHandler(new PermissionsTable(user));
     }
-
 }
